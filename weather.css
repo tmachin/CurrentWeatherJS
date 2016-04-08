@@ -1,0 +1,27 @@
+/* div {
+	margin: 0.2em;
+	padding: 1em;
+	border: solid 3px grey;
+} */
+
+body {
+	color: #fff;
+	background: #000283;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+}
+#loc {
+	display: none;
+}
+.weather {
+	background: #005CB6;
+	padding: 1em;
+	margin:1em;
+	border-radius: 5px;
+}
+
+#getWeather, #changeUnits {
+	background: #0070CA;
+	padding: 0.5em;
+	border-radius: 5px;
+}
