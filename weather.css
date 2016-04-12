@@ -9,19 +9,30 @@ body {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 18px;
 }
-h1 {
+a, a:visited {
+    text-decoration: none;
+    color: rgb(41, 103, 133);
+}
+a:hover, a:active {
+    text-decoration: underline;
+    color: rgb(78, 66, 66);
+}
+h1#title {
     text-align: center;
+    font-weight: 800;
+    color:#fff;
+    text-shadow: 1px 2px 0px rgb(78, 66, 66);
 }
 #loc {
 	display: none;
 }
-.weather, .buttons {
+.weather {
     background-color: #fff;
 	padding: 1em;
 	margin:1em auto;
     max-width: 500px;
     text-align:center;
-    border-bottom: darkgrey solid 2px;
+    border-bottom: 4px solid rgb(78, 66, 66);
 }
 
 .temperature {
@@ -29,14 +40,27 @@ h1 {
     font-weight: 800;
 }
 
-#getWeather, #changeUnits {
-	background: #0070CA;
-	padding: 0.5em;
-	border-radius: 5px;
-}
 .icon {
-    color:rgb(149, 149, 149);
     max-width: 3em;
     display:block;
     margin:0.25em auto;
 }
+ .btn {
+     font-size: 1em;
+     padding: 0.5em;
+     border: none;
+     color: rgb(41, 103, 133);
+     background: none;
+ }
+ .btn:hover, .btn:active {
+     color: rgb(78, 66, 66);
+ }
+
+ footer {
+     background-color: #fff;
+ 	padding: 1em;
+ 	margin:1em auto;
+     max-width: 500px;
+     text-align:center;
+     border-bottom: rgb(78, 66, 66) solid 4px;
+ }

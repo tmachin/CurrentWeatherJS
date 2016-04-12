@@ -11,27 +11,22 @@
 </head>
 <body>
 <div>
-  <h1>Current Weather</h1>
+  <h1 id="title">Current Weather</h1>
     <div id="loc"> Location </div>
     <div class = "weather">
 			<div class="location">Location</div>
-            <div class="description">Description</div>
+            <div class="description"><h3>Description</h3></div>
 			<div class="temperature"><img src="icons/weather.svg" class="icon" />0&deg; C</div>
 
 			<div class="wind">Wind</div>
+            <button id = "getWeather" class = "btn">Refresh Weather</button>
+            |
+      	<button id = "changeUnits" class = "btn">Units: metric</button>
     </div>
-  <div class="buttons">
-      <button id = "getWeather" class = "btn btn-primary">
-        Refresh Weather
-      </button>
-			<button id = "changeUnits" class = "btn btn-primary">
-        Units: metric
-      </button>
-  </div>
 </div>
 <footer>
-    <h5>Thomas Machin &copy; 2016 </h5>
-    <h6>https://github.com/tmachin/CurrentWeatherJS</h6>
+    <h5><a href="http://thomasmachin.com">Thomas Machin &copy; 2016</a> </h5>
+    <h5><a href="https://github.com/tmachin/CurrentWeatherJS">https://github.com/tmachin/CurrentWeatherJS</a></h5>
 </footer>
 </body>
 </html>
