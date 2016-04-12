@@ -285,32 +285,29 @@ function convertWindSpeed(speed) {
 	}
 }
 
-function getLocation() {
-  console.log("Attempting geolocation");
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-
 function setPosition(position) {
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
 	//console.log(lat + "," + lon);
-  $("#loc").html = "Latitude: " + position.coords.latitude +
-    "<br>Longitude: " + position.coords.longitude;
+  $("#loc").html = "Latitude: " + lat +
+    "<br>Longitude: " + lon;
 	getWeatherJSON();
 }
 
 function posError(error){
-
+    console.log("Geolocation Error");
+    lat = 0;
+	lon = 0;
+	//console.log(lat + "," + lon);
+  $("#loc").html = "Error Getting Location <br> Latitude: " + lat +
+    "<br>Longitude: " + lon;
+	getWeatherJSON();
 }
 
 function getWeatherJSON(){
 	console.log("--Getting weather--");
-$.getJSON("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&units="+units+"&appid="+ apiKey, function(json) {
-		//console.log(json);
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&units="+units+"&appid="+ apiKey, function(json) {
+        console.log("--Got Weather JSON--");
 		currentWeather = json;
 		showWeather(currentWeather, units);
 		});
@@ -325,18 +322,17 @@ function showWeather(weather, unit){
 		unitSymbol = "C";
 	}
 
-	icon = weather.weather[0].icon;
+	icon = weather.weather[0].main;
+    icon = icon.toLowerCase()
+    console.log(icon.toLowerCase());
 	background = weather.weather[0].main;
-	$('.location').text("" + weather.name + "," + getCountryName(weather.sys.country));
-	$('.conditions').html("<h3>" + weather.weather[0].main + "</h3");
-	$('.temperature').html("<img src='http://openweathermap.org/img/w/"+icon+".png' alt='icon' />" + weather.main.temp + "&deg " + unitSymbol);
+	$('.location').text("" + weather.name + ", " + getCountryName(weather.sys.country));
+	//$('.conditions').html("<h3>" + weather.weather[0].main + "</h3");
+	$('.temperature').html("<img src='icons/"+icon+".svg' alt='"+icon+"' class='icon'/>" + weather.main.temp + "&deg " + unitSymbol);
 
-	$('.description').text("Description: " + weather.weather[0].description);
+	$('.description').html("<h3>" + weather.weather[0].description + "</h3>");
 	$('.wind').text("Wind: " + convertWindSpeed(weather.wind.speed) + " " + degreesToDirection(weather.wind.deg));
 }
-
-
-
 
 
 $("#getWeather").on("click", function() {

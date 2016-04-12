@@ -5,23 +5,38 @@
 } */
 
 body {
-	color: #fff;
-	background: #000283;
+    background-color: rgb(158, 199, 219);
 	font-family: 'Open Sans', sans-serif;
 	font-size: 18px;
+}
+h1 {
+    text-align: center;
 }
 #loc {
 	display: none;
 }
-.weather {
-	background: #005CB6;
+.weather, .buttons {
+    background-color: #fff;
 	padding: 1em;
-	margin:1em;
-	border-radius: 5px;
+	margin:1em auto;
+    max-width: 500px;
+    text-align:center;
+    border-bottom: darkgrey solid 2px;
+}
+
+.temperature {
+    font-size: 3em;
+    font-weight: 800;
 }
 
 #getWeather, #changeUnits {
 	background: #0070CA;
 	padding: 0.5em;
 	border-radius: 5px;
+}
+.icon {
+    color:rgb(149, 149, 149);
+    max-width: 3em;
+    display:block;
+    margin:0.25em auto;
 }
