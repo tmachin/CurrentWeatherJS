@@ -6,30 +6,32 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="weather.js"></script>
 
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="weather.css" />
 </head>
 <body>
-<div class="container-fluid">
-  <h2 class="text-center">Current Weather</h2>
-  <div class = "row text-center">
+<div>
+  <h1>Current Weather</h1>
     <div id="loc"> Location </div>
-    <div class = "col-xs-12 weather">
+    <div class = "weather">
 			<div class="location">Location</div>
-			<div class="conditions">Conditions</div>
-			<div class="temperature">Temperature</div>
-			<div class="description">Description</div>
+            <div class="description">Description</div>
+			<div class="temperature"><img src="icons/weather.svg" class="icon" />0&deg; C</div>
+
 			<div class="wind">Wind</div>
     </div>
-  </div>
-  <div class = "row text-center">
-    <div class = "col-xs-12">
+  <div class="buttons">
       <button id = "getWeather" class = "btn btn-primary">
         Refresh Weather
       </button>
 			<button id = "changeUnits" class = "btn btn-primary">
         Units: metric
       </button>
-    </div>
   </div>
 </div>
+<footer>
+    <h5>Thomas Machin &copy; 2016 </h5>
+    <h6>https://github.com/tmachin/CurrentWeatherJS</h6>
+</footer>
 </body>
 </html>
