@@ -25,6 +25,8 @@ h1#title {
     font-weight: 800;
     color:#fff;
     text-shadow: 1px 2px 0px rgb(78, 66, 66);
+    margin:0;
+    margin-bottom: 0.25em;
 }
 h4 {
     margin:0.25em;
@@ -146,10 +148,13 @@ main {
  }
 
  @media screen and (max-width: 650px) {
+
     .currentWeather {
         display:block;
     }
-
+    .weather {
+        margin:0 auto;
+    }
     .upcomingforecast {
         text-align: left;
         margin: 1em auto;
@@ -160,8 +165,16 @@ main {
     }
  }
  @media screen and (max-width: 400px) {
-
+    body {
+         font-size: 14px;
+    }
     .upcomingforecast .icon, .indvforecast .icon {
         padding-left: 10%;
+    }
+ }
+ @media screen and (max-width: 270px) {
+
+    body {
+        font-size: 10px;
     }
  }
