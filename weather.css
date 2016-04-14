@@ -42,7 +42,6 @@ main {
     flex-direction:row;
     justify-content: space-around;
 }
-
 .weather, .indvforecast, .showforecast {
     background-color: #fff;
 	padding: 0.5em;
@@ -50,12 +49,10 @@ main {
     text-align:center;
     border-bottom: 4px solid rgb(78, 66, 66);
 }
-
 .weather {
     flex-grow: 1;
     margin-bottom: 0;
 }
-
 .weather h3{
     font-size: 2em;
     margin-top: 0.25em;
@@ -65,7 +62,6 @@ main {
     flex-grow: 1;
     display:none;
 }
-
 .upcomingforecast {
     background-color: #fff;
 	padding: 1em;
@@ -76,7 +72,6 @@ main {
 .upcomingforecast:last-child {
     margin-bottom: 0;
 }
-
 
 .upcomingforecast h3, .indvforecast h3{
     margin:0.25em;
@@ -148,4 +143,25 @@ main {
      text-align:center;
      border-bottom: rgb(78, 66, 66) solid 4px;
      box-sizing: border-box;
+ }
+
+ @media screen and (max-width: 650px) {
+    .currentWeather {
+        display:block;
+    }
+
+    .upcomingforecast {
+        text-align: left;
+        margin: 1em auto;
+        padding:0.5em;
+    }
+    .upcomingforecast .icon {
+        padding-left: 30%;
+    }
+ }
+ @media screen and (max-width: 400px) {
+
+    .upcomingforecast .icon, .indvforecast .icon {
+        padding-left: 10%;
+    }
  }
