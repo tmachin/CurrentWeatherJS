@@ -10,25 +10,34 @@
     <link rel="stylesheet" href="weather.css" />
 </head>
 <body>
-<div>
-  <h1 id="title">Current Weather</h1>
-    <div id="loc"> Location </div>
-    <div class = "weather">
-			<div class="location">Location</div>
-            <div class="description"><h3>Description</h3></div>
-			<div class="temperature"><img src="icons/weather.svg" class="icon" />0&deg; C</div>
+    <main>
+        <h1 id="title">Current Weather</h1>
+        <div class="currentWeather">
 
-			<div class="wind">Wind</div>
-            <button id = "getWeather" class = "btn">Refresh Weather</button>
-            |
-      	<button id = "changeUnits" class = "btn">Units: metric</button>
-    </div>
-</div>
-<footer>
-    <h5><a href="http://thomasmachin.com">Thomas Machin &copy; 2016</a> </h5>
-    <h5><a href="https://github.com/tmachin/CurrentWeatherJS">https://github.com/tmachin/CurrentWeatherJS</a></h5>
+            <div id="loc"> Location </div>
+            <div class = "weather">
+        			<div class="location">Location</div>
+                    <div class="description"><h3>Description</h3></div>
+        			<div class="temperature"><img src="icons/weather.svg" class="icon" />0&deg; C</div>
 
-    <h6>Icons designed by <a href="http://www.flaticon.com/authors/rami-mcmin">Rami McMin</a></h6>
-</footer>
-</body>
-</html>
+        			<div class="wind">Wind</div>
+                    <button id = "getWeather" class = "btn">Refresh Weather</button>
+                    |
+              	<button id = "changeUnits" class = "btn">Units: metric</button>
+            </div>
+            <div class="soonforecasts"></div>
+        </div>
+
+        <div class="furtherforecast"></div>
+        <div class="showforecast">
+            <button id = "btnShowForecast" class = "btn">Show Full Forecast</button>
+        </div>
+        <footer>
+            <h5><a href="http://thomasmachin.com">Thomas Machin &copy; 2016</a> </h5>
+            <h5><a href="https://github.com/tmachin/CurrentWeatherJS">https://github.com/tmachin/CurrentWeatherJS</a></h5>
+
+            <h6>Icons designed by <a href="http://www.flaticon.com/authors/rami-mcmin rel="nofollow"">Rami McMin</a></h6>
+        </footer>
+    </main>
+    </body>
+    </html>

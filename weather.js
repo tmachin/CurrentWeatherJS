@@ -1,3 +1,15 @@
+jQuery.fn.extend({
+        toggleText: function (a, b){
+            var isClicked = false;
+            var that = this;
+            this.click(function (){
+                if (isClicked) { that.text(a); isClicked = false; }
+                else { that.text(b); isClicked = true; }
+            });
+            return this;
+        }
+    });
+
 $(document).ready(function() {
 
 var x = document.getElementById("loc");
@@ -279,12 +291,16 @@ function degreesToDirection(deg) {
 
 function convertWindSpeed(speed) {
 	if (units == "imperial"){
-			return speed + "mp/h ";
+			return Math.round(speed) + "mp/h ";
 	} else {
-			return speed * 3.6 + "km/h ";
+			return Math.round(speed * 3.6) + "km/h ";
 	}
 }
 
+function dayName(num){
+    var dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    return dayNames[num];
+}
 function setPosition(position) {
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
@@ -311,6 +327,12 @@ function getWeatherJSON(){
 		currentWeather = json;
 		showWeather(currentWeather, units);
 		});
+    $.getJSON("http://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&units="+units+"&appid="+ apiKey, function(json) {
+            console.log("--Got ForecastWeather JSON--");
+    		forecastWeather = json;
+            //console.log(forecastWeather);
+    		showForecast(forecastWeather, units);
+    });
 }
 
 function showWeather(weather, unit){
@@ -333,7 +355,62 @@ function showWeather(weather, unit){
 	$('.description').html("<h3>" + weather.weather[0].description + "</h3>");
 	$('.wind').text("Wind: " + convertWindSpeed(weather.wind.speed) + " " + degreesToDirection(weather.wind.deg));
 }
+function showForecast(weather, unit){
 
+	var unitSymbol = "";
+	if (unit == "imperial"){
+		unitSymbol = "F";
+	} else {
+		unitSymbol = "C";
+	}
+
+    $('.soonforecasts').html('');
+    $('.furtherforecast').html('');
+
+    for (i =0; i < 20; i++){
+        icon = weather.list[i].weather[0].main;
+        icon = icon.toLowerCase()
+
+        var ntime = parseInt(weather.list[i].dt);
+        //console.log(ntime);
+        console.log(weather.list[i].dt);
+        var vdate = new Date();
+        vdate.setTime(ntime);
+        var ndate = new Date(weather.list[i].dt_txt);
+        console.log(ndate);
+        console.log(vdate);
+        var dateTxt = "<h4>"+dayName(ndate.getDay()) + " " +ndate.toLocaleTimeString() +"</h4>";
+        var today = new Date().getDay();
+
+        var divClass = "indvforecast";
+
+        var contDivFinish = "";
+        if(i < 3 ){
+            divClass = "soonforecast";
+        }
+        var html = "<div class='"+divClass+"'>";
+        var temp = Math.round(weather.list[i].main.temp);
+        var desc = weather.list[i].weather[0].description;
+        //var desc = weather.list[i].weather[0].main;
+
+    	var iconHtml = "<img src='icons/"+icon+".svg' alt='"+icon+"' class='icon'/>" + temp + "&deg " + unitSymbol;
+        var descriptionHtml = "<h3>" + desc + "</h3>";
+        var endDiv = "</div>";
+
+        html += dateTxt;
+        html += iconHtml;
+        html += descriptionHtml;
+        html += "</div>";
+
+        if(i < 3 ){
+            $('.soonforecasts').append(html);
+            $('.soonforecasts').show('linear');
+            //$('.soonforecasts').append(html);
+        } else {
+            $('.furtherforecast').append(html);
+        }
+    }
+}
 
 $("#getWeather").on("click", function() {
     getWeatherJSON();
@@ -349,6 +426,17 @@ $("#changeUnits").on("click", function() {
 
     getWeatherJSON();
 });
+$("#btnShowForecast").on("click", function() {
+	$('.furtherforecast').slideToggle();
+});
+
+$("#btnShowForecast").toggleText("Show Full Forecast","Hide Full Forecast");
+
+// $("#btnShowForecast").toggle(function() {
+//           $(this).text("ShowForecast");
+//         }, function() {
+//           $(this).text("HideForecast");
+//         });
 
 navigator.geolocation.getCurrentPosition(setPosition, posError);
 
