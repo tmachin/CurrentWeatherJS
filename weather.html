@@ -1,8 +1,20 @@
 <!DOCTYPE html>
+<!--
+    by Thomas Machin
+    thomasmachin.com
+
+    CurrentweatherJS
+    https://github.com/tmachin/CurrentWeatherJS
+
+    uses browser location to get the current weather and forecast from the OpenWeatherMap API
+-->
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Current Weather</title>
+    <meta name="description" content="CurrentweatherJS - uses browser location and jQuery to get the current weather and forecast from the OpenWeatherMap API">
+    <meta name="author" content="Thomas Machin">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="weather.js"></script>
 
@@ -13,10 +25,8 @@
     <main>
         <h1 id="title">Current Weather</h1>
         <div class="currentWeather">
-
-            <div id="loc"> Location </div>
             <div class = "weather">
-        			<div class="location">Location</div>
+                    <div class="location"> Location </div>
                     <div class="description"><h3>Description</h3></div>
         			<div class="temperature"><img src="icons/weather.svg" class="icon" />0&deg; C</div>
 
@@ -25,13 +35,16 @@
                     |
               	<button id = "changeUnits" class = "btn">Units: metric</button>
             </div>
-            <div class="soonforecasts"></div>
+            <div class="upcomingforecasts"></div>
         </div>
-
+        
+        <!--loads forecast elements -->
         <div class="furtherforecast"></div>
+
         <div class="showforecast">
             <button id = "btnShowForecast" class = "btn">Show Full Forecast</button>
         </div>
+
         <footer>
             <h5><a href="http://thomasmachin.com">Thomas Machin &copy; 2016</a> </h5>
             <h5><a href="https://github.com/tmachin/CurrentWeatherJS">https://github.com/tmachin/CurrentWeatherJS</a></h5>

@@ -1,9 +1,12 @@
-/* div {
-	margin: 0.2em;
-	padding: 1em;
-	border: solid 3px grey;
-} */
+/*
+    by Thomas Machin
+    thomasmachin.com
 
+    CurrentweatherJS
+    https://github.com/tmachin/CurrentWeatherJS
+
+    uses browser location to get the current weather and forecast from the OpenWeatherMap API
+*/
 body {
     background-color: rgb(158, 199, 219);
 	font-family: 'Open Sans', sans-serif;
@@ -31,45 +34,59 @@ h4 {
 }
 main {
     max-width: 800px;
-    margin: 1em auto;
-    padding:1em;
+    margin: 0 auto;
+    padding:0.5em;
 }
 .currentWeather {
     display:flex;
     flex-direction:row;
     justify-content: space-around;
 }
+
 .weather, .indvforecast, .showforecast {
     background-color: #fff;
-	padding: 1em;
-	margin:1em auto;
+	padding: 0.5em;
     max-width: 500px;
     text-align:center;
     border-bottom: 4px solid rgb(78, 66, 66);
-
 }
+
 .weather {
-    /*width:50%;*/
     flex-grow: 1;
-    /*margin-right: 1em;*/
-}
-.soonforecasts {
-    flex-grow: 1;
-    display:none;
-
-}
-
-.soonforecast {
-    background-color: #fff;
-	padding: 1em;
-    border-bottom: 4px solid rgb(78, 66, 66);
-    text-align:left;
-    margin: 1em;
     margin-bottom: 0;
 }
 
-.soonforecast h3, .indvforecast h3{
+.weather h3{
+    font-size: 2em;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+.upcomingforecasts {
+    flex-grow: 1;
+    display:none;
+}
+
+.upcomingforecast {
+    background-color: #fff;
+	padding: 1em;
+    border-bottom: 4px solid rgb(78, 66, 66);
+    margin-left: 1em;
+    margin-bottom: 1em;
+}
+.upcomingforecast:last-child {
+    margin-bottom: 0;
+}
+
+
+.upcomingforecast h3, .indvforecast h3{
     margin:0.25em;
+}
+
+.upcomingforecast h4, .indvforecast h4 {
+    text-align: center;
+}
+.upcomingforecast .temperature,.indvforecast .temperature {
+    font-size: 2em;
 }
 
 .furtherforecast {
@@ -89,10 +106,16 @@ main {
 .icon {
     max-width: 3em;
     display:block;
-    margin:0.25em auto;
+    margin:1em auto;
 }
-.indvforecast .icon, .soonforecast .icon {
+.indvforecast .icon, .upcomingforecast .icon {
     float:left;
+    padding-left: 2em;
+    padding-right: 0.25em;
+}
+
+.indvforecast .icon {
+    padding-left: 30%;
 }
 
  .btn {

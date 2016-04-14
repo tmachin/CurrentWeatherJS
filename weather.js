@@ -1,3 +1,13 @@
+/*
+    by Thomas Machin
+    thomasmachin.com
+
+    CurrentweatherJS
+    https://github.com/tmachin/CurrentWeatherJS
+
+    uses browser location to get the current weather and forecast from the OpenWeatherMap API
+*/
+
 jQuery.fn.extend({
         toggleText: function (a, b){
             var isClicked = false;
@@ -10,7 +20,7 @@ jQuery.fn.extend({
         }
     });
 
-$(document).ready(function() {
+
 
 var x = document.getElementById("loc");
 var apiKey = "f538e3730d9d92e2bd8909b2ca1cff5f";
@@ -301,10 +311,11 @@ function dayName(num){
     var dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
     return dayNames[num];
 }
+
 function setPosition(position) {
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
-	//console.log(lat + "," + lon);
+
   $("#loc").html = "Latitude: " + lat +
     "<br>Longitude: " + lon;
 	getWeatherJSON();
@@ -314,7 +325,7 @@ function posError(error){
     console.log("Geolocation Error");
     lat = 0;
 	lon = 0;
-	//console.log(lat + "," + lon);
+
   $("#loc").html = "Error Getting Location <br> Latitude: " + lat +
     "<br>Longitude: " + lon;
 	getWeatherJSON();
@@ -330,7 +341,6 @@ function getWeatherJSON(){
     $.getJSON("http://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&units="+units+"&appid="+ apiKey, function(json) {
             console.log("--Got ForecastWeather JSON--");
     		forecastWeather = json;
-            //console.log(forecastWeather);
     		showForecast(forecastWeather, units);
     });
 }
@@ -346,10 +356,10 @@ function showWeather(weather, unit){
 
 	icon = weather.weather[0].main;
     icon = icon.toLowerCase()
-    console.log(icon.toLowerCase());
+
 	background = weather.weather[0].main;
 	$('.location').text("" + weather.name + ", " + getCountryName(weather.sys.country));
-	//$('.conditions').html("<h3>" + weather.weather[0].main + "</h3");
+
 	$('.temperature').html("<img src='icons/"+icon+".svg' alt='"+icon+"' class='icon'/>" + weather.main.temp + "&deg " + unitSymbol);
 
 	$('.description').html("<h3>" + weather.weather[0].description + "</h3>");
@@ -364,36 +374,40 @@ function showForecast(weather, unit){
 		unitSymbol = "C";
 	}
 
-    $('.soonforecasts').html('');
+    $('.upcomingforecasts').html('');
     $('.furtherforecast').html('');
 
     for (i =0; i < 20; i++){
         icon = weather.list[i].weather[0].main;
         icon = icon.toLowerCase()
 
-        var ntime = parseInt(weather.list[i].dt);
-        //console.log(ntime);
-        console.log(weather.list[i].dt);
-        var vdate = new Date();
-        vdate.setTime(ntime);
-        var ndate = new Date(weather.list[i].dt_txt);
-        console.log(ndate);
-        console.log(vdate);
-        var dateTxt = "<h4>"+dayName(ndate.getDay()) + " " +ndate.toLocaleTimeString() +"</h4>";
+        var ntime = parseInt(weather.list[i].dt)*1000; //get time in seconds and turn in into time in milliseconds
+
+        var ndate = new Date(ntime);
+
+
+        var hours = ndate.getHours();
+        var timeTXT = '';
+        if (hours <= 12){
+            timeTXT += hours + " AM";
+        } else {
+            hours = hours - 12;
+            timeTXT += hours + " PM";
+        }
+        var dateTxt = "<h4>"+ timeTXT + ", " +dayName(ndate.getDay()) + "</h4>";
         var today = new Date().getDay();
 
         var divClass = "indvforecast";
 
         var contDivFinish = "";
         if(i < 3 ){
-            divClass = "soonforecast";
+            divClass = "upcomingforecast";
         }
         var html = "<div class='"+divClass+"'>";
         var temp = Math.round(weather.list[i].main.temp);
         var desc = weather.list[i].weather[0].description;
-        //var desc = weather.list[i].weather[0].main;
 
-    	var iconHtml = "<img src='icons/"+icon+".svg' alt='"+icon+"' class='icon'/>" + temp + "&deg " + unitSymbol;
+    	var iconHtml = "<img src='icons/"+icon+".svg' alt='"+icon+"' class='icon'/><span class='temperature'>" + temp + "&deg " + unitSymbol + "</span>";
         var descriptionHtml = "<h3>" + desc + "</h3>";
         var endDiv = "</div>";
 
@@ -402,15 +416,17 @@ function showForecast(weather, unit){
         html += descriptionHtml;
         html += "</div>";
 
+        //puts the first three forecasts next to the current weather
         if(i < 3 ){
-            $('.soonforecasts').append(html);
-            $('.soonforecasts').show('linear');
-            //$('.soonforecasts').append(html);
+            $('.upcomingforecasts').append(html);
+            $('.upcomingforecasts').show('linear');
         } else {
             $('.furtherforecast').append(html);
         }
     }
 }
+$(document).ready(function() {
+
 
 $("#getWeather").on("click", function() {
     getWeatherJSON();
@@ -431,12 +447,6 @@ $("#btnShowForecast").on("click", function() {
 });
 
 $("#btnShowForecast").toggleText("Show Full Forecast","Hide Full Forecast");
-
-// $("#btnShowForecast").toggle(function() {
-//           $(this).text("ShowForecast");
-//         }, function() {
-//           $(this).text("HideForecast");
-//         });
 
 navigator.geolocation.getCurrentPosition(setPosition, posError);
 
