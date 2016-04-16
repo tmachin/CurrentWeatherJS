@@ -425,8 +425,10 @@ function showForecast(weather, unit){
         }
     }
 }
-$(document).ready(function() {
 
+$(document).ready(function() {
+    navigator.geolocation.getCurrentPosition(setPosition, posError);
+});
 
 $("#getWeather").on("click", function() {
     getWeatherJSON();
@@ -447,7 +449,3 @@ $("#btnShowForecast").on("click", function() {
 });
 
 $("#btnShowForecast").toggleText("Show Full Forecast","Hide Full Forecast");
-
-navigator.geolocation.getCurrentPosition(setPosition, posError);
-
-});
